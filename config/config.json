@@ -1,0 +1,45 @@
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "flashable",
+    "host": "localhost",
+    "dialect": "mariadb",
+    "timezone": "ETC/GMT",
+    "define": {
+      "charset": "utf8mb4",
+      "timestamps": false,
+      "dialectOptions": {
+        "collate": "utf8mb4_general_ci",
+        "useUTC": false
+      }
+    },
+    "benchmark": false,
+    "logging": false
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "flashable",
+    "host": "localhost",
+    "dialect": "mariadb"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "flashable",
+    "host": "localhost",
+    "dialect": "mariadb",
+    "define": {
+      "charset": "utf8mb4",
+      "timestamps": false,
+      "timezone": "America/Los_Angeles",
+      "dialectOptions": {
+        "collate": "utf8mb4_general_ci",
+        "useUTC": false
+      }
+    },
+    "benchmark": false,
+    "logging": false
+  }
+}
