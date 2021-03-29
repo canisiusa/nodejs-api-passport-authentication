@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('socialchat:server');
+var debug = require('debug')('nodejs-api-passport-authentication:server');
 var http = require('http');
 
 /**
@@ -20,7 +20,6 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -82,7 +81,9 @@ function onError(error) {
  */
 
 function onListening() {
+  
   var addr = server.address();
+  console.log(`your server is running at http://localhost:${port }`)
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;

@@ -2,7 +2,7 @@
   "name": "nodejs-passport-api-authentication",
   "version": "1.0.0",
   "scripts": {
-    "dev": "nodemon ./bin/www"
+    "dev": "node ./bin/www"
   },
   "dependencies": {
     "axios": "^0.21.0",
