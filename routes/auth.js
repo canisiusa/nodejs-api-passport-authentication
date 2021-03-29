@@ -9,13 +9,11 @@ router.post('/register', auth_Controller.registerSchema, auth_Controller.registe
 router.post('/verify-email', auth_Controller.verifyEmailSchema , auth_Controller.verifyEmail);
 
 router.post('/login', auth_Controller.authenticateSchema, auth_Controller.authenticate)
+router.post('/refreshToken', auth_Controller.refreshToken);
 
 router.post('/forgot-password', auth_Controller.forgotPasswordSchema, auth_Controller.forgotPassword);
 router.post('/validate-reset-token', auth_Controller.validateResetTokenSchema, auth_Controller.validateResetToken);
 router.post('/reset-password', auth_Controller.resetPasswordSchema, auth_Controller.resetPassword);
-
-
-module.exports = router;
 
 
 module.exports = router;

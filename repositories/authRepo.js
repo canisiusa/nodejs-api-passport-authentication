@@ -21,7 +21,7 @@ module.exports = {
 async function authenticate({ user, ipAddress }) {
   try {
     // authentication successful so generate jwt and refresh tokens
-    const jwtToken = generateJwtToken(user);
+    const access_token = generateJwtToken(user);
     const refreshToken = generateRefreshToken(user, ipAddress);
 
     // save refresh token
@@ -30,9 +30,9 @@ async function authenticate({ user, ipAddress }) {
     // return basic details and tokens
 
     return {
-     // ...basicDetails(user),
-      jwtToken,
-      refreshToken: refreshToken.token
+      access_token,
+      refreshToken: refreshToken.token,
+      tokenExp: refreshToken.expires,
     };
   } catch (error) {
     throw new Error(error)
@@ -40,8 +40,9 @@ async function authenticate({ user, ipAddress }) {
 
 }
 
-async function refreshToken({ account, token, ipAddress }) {
+async function refreshToken({  token, ipAddress }) {
   const refreshToken = await getRefreshToken(token);
+  const account = await db.User.findByPk(refreshToken.userId)
 
   // replace old refresh token with a new one and save
   const newRefreshToken = generateRefreshToken(account, ipAddress);
@@ -52,12 +53,13 @@ async function refreshToken({ account, token, ipAddress }) {
   await newRefreshToken.save();
 
   // generate new jwt
-  const jwtToken = generateJwtToken(account);
+  const access_token = generateJwtToken(account);
 
   // return basic details and tokens
   return {
-    jwtToken,
-    refreshToken: newRefreshToken.token
+    access_token,
+    refreshToken: newRefreshToken.token,
+    tokenExp: newRefreshToken.expires,
   };
 }
 
@@ -170,8 +172,7 @@ async function resetPassword({ token, password }) {
 
 async function getRefreshToken(token) {
   const refreshToken = await db.Refreshtoken.findOne({ where: { token } });
-  console.log(refreshToken)
-  if (!refreshToken || !refreshToken.isActive) throw 'Invalid token';
+  if (!refreshToken /* || !refreshToken.isActive */) throw 'Invalid token';
   return refreshToken;
 }
 

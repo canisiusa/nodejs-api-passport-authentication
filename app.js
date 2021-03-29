@@ -39,11 +39,11 @@ app.use(function (err, req, res, next) {
 });
 
 // authentication router
-app.use('/', require('./routes/auth'));
+app.use('/api', require('./routes/auth'));
 
 // require authentication router
-app.use('/', passport.authenticate('jwt', { session: false }), require('./routes/_auth'));
-app.use('/users', passport.authenticate('jwt', { session: false }), require('./routes/users'));
+app.use('/api', passport.authenticate('jwt', { session: false }), require('./routes/_auth'));
+app.use('/api/users', passport.authenticate('jwt', { session: false }), require('./routes/users'));
 
 //redirect to login if route is not registered
 app.use('*', function (req, res) {

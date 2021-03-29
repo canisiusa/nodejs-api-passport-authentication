@@ -88,10 +88,9 @@ class AuthController {
 
 
   refreshToken = (req, res, next) => {
-    const token = req.cookies.refreshToken;
+    const token = req.body.refresh_token;
     const ipAddress = req.ip;
-    const account = req.user
-    authRepo.refreshToken({ account, token, ipAddress })
+    authRepo.refreshToken({ token, ipAddress })
       .then(item => {
         const { refreshToken } = item
        this.setTokenCookie(res, refreshToken)
@@ -101,7 +100,6 @@ class AuthController {
           error: {}
         }
         res.json(apiResponse);
-        res.json(item);
       })
       .catch(next);
   }
@@ -202,6 +200,7 @@ class AuthController {
   }
 
   userInfos(req, res, next) {
+    console.log(req.user)
     userRepo.getAccount(req.user.id).then((response)=>{
       res.json({ 
         success: true,

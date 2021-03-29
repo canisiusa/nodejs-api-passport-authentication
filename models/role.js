@@ -11,11 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // Role.belongsToMany(models.User, { through: 'Roleusers' }); // after features
-      Role.hasMany(models.Roleuser, { foreignKey: 'roleId', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
-
+      Role.hasMany(models.User, { foreignKey: 'roleId', onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     }
-  };
+  }
   Role.init({
     name: {
       type: DataTypes.ENUM('ADMIN','READER'),

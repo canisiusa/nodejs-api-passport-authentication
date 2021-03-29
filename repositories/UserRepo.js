@@ -7,7 +7,6 @@ module.exports = {
   create,
   update,
   delete: _delete,
-  getUserRole
 };
 
 
@@ -62,9 +61,15 @@ async function _delete(id) {
 
 
 async function getAccount(id) {
-  const account = await db.User.findByPk(id);
+  const account = await db.User.findOne({
+    where: {
+      id: id
+    },
+    include: db.Role
+  });
+  
   if (!account) throw 'Account not found';
-  return account;
+  return { ...basicDetails(account)};
 }
 
 // helper functions
@@ -72,13 +77,13 @@ async function getAccount(id) {
 
 
 function basicDetails(account) {
-  const { id, title, firstName, lastName, email, role, created, updated, isVerified } = account;
-  return { id, title, firstName, lastName, email, role, created, updated, isVerified };
+  const { id, avatar, firstName, lastName, fullName, email, Role , createdAt, updatedAt, isVerified } = account;
+  const roleNames = [Role.name]
+  return { id, avatar, firstName, lastName, fullName, email, roleNames, createdAt, updatedAt, isVerified };
 }
 
 async function getUserByEmail(email) {
   const user = await db.User.findOne({ where: { email } });
-  console.log(user)
   return user;
 }
 

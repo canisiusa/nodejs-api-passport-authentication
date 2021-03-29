@@ -1,7 +1,6 @@
 openapi: 3.0.0
 info:
-  title: wezongan
-  description: Node.js + MariaDB + SQL - API 
+  title: flash-able
   version: 1.0.0
 
 servers:

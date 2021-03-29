@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Refreshtoken.belongsTo(models.User)
     }
-  };
+  }
   Refreshtoken.init({
     token: DataTypes.STRING,
     expires: DataTypes.DATE,
